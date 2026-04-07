@@ -1,65 +1,571 @@
-body {
-    width: 100%;
-    height: 100%;
+:root {
+    --primary-color: #c97860;
+    --secondary-color: #f0d7a7;
+    --dark-color: #3d3d3d;
+    --light-color: #f5f3f0;
+    --accent-color: #8b4e3f;
 }
 
-.banner {
-    width: 100%;
-    height: 500px;
-    object-fit: cover;
-    object-position: center;
-    background-color: #000;
-    z-index: 1;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-.banner::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("imgs/sourdough-loaves-news-banner.jpg");
-    background-size: cover;
-    background-position: center;
-    filter: blur(3px);
-    z-index: 0;
-}
-
-.banner-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(0deg, rgba(255, 179, 148, 0.7), rgba(255, 179, 148, 0));
-    z-index: 1;
-    pointer-events: none;
-}
-
-.titling,
-.subtitling {
-    filter: none !important;
-    z-index: 2;
+* {
     margin: 0;
-    position: relative;
-    Color: rgb(240, 240, 240);
-    font-weight: bolder;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    color: var(--dark-color);
+    background-color: #fff;
+    width: 100%;
+}
+
+/* Navigation */
+.navbar-custom {
+    background-color: #faf7f4;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e0d5c7;
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .breb-logo {
-    width: 100px;
+    width: 80px;
+    height: auto;
 }
 
-/*
-Color Scheme:
-(240,215,167)
-(195,121,96)
-(137,78,63)
-(238,225,186)
+.navbar-center {
+    flex: 1;
+    justify-content: center;
+    margin: 0 2rem;
+}
 
-*/
+.navbar-nav .nav-link {
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    color: var(--dark-color) !important;
+    margin: 0 1rem;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.nav-cart {
+    margin-left: auto;
+}
+
+.nav-cart .nav-link {
+    background-color: var(--secondary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* Hero Banner */
+.hero-banner {
+    display: flex;
+    align-items: center;
+    height: 400px;
+    background-color: #faf7f4;
+    padding: 0;
+}
+
+.hero-content {
+    flex: 1;
+    padding: 4rem;
+    max-width: 600px;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+    letter-spacing: 1px;
+}
+
+.hero-subtitle {
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    color: #666;
+    font-weight: 600;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.btn-custom {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.btn-custom-outline {
+    background-color: transparent;
+    color: var(--dark-color);
+    border: 2px solid var(--dark-color);
+    padding: 0.65rem 1.85rem;
+}
+
+.btn-custom-outline:hover {
+    background-color: var(--dark-color);
+    color: white;
+}
+
+.hero-image {
+    flex: 1;
+    height: 100%;
+    background-image: url('imgs/sourdough-loaves-news-banner.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Best Sellers Section */
+.section-best-sellers {
+    padding: 4rem 2rem;
+    background-color: #fff;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 3rem;
+    color: var(--dark-color);
+    border-bottom: 2px solid var(--primary-color);
+    display: inline-block;
+    padding-bottom: 0.5rem;
+    width: 100%;
+}
+
+.product-card {
+    background-color: var(--light-color);
+    border-radius: 16px;
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 1.5rem;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.product-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+}
+
+.product-name {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+}
+
+.product-price {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.btn-add-cart {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.65rem 1.5rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.btn-add-cart:hover {
+    background-color: var(--accent-color);
+}
+
+/* Story & Bake Section */
+.section-story-bake {
+    padding: 4rem 2rem;
+    background-color: #faf7f4;
+}
+
+.section-heading {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    color: var(--dark-color);
+}
+
+.story-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 1.5rem;
+    max-width: 400px;
+}
+
+.learn-more {
+    display: inline-block;
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.25rem;
+    transition: color 0.3s ease;
+}
+
+.learn-more:hover {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+}
+
+.story-image-container {
+    display: flex;
+    justify-content: center;
+}
+
+.story-image {
+    width: 90%;
+    max-width: 350px;
+    height: auto;
+    border-radius: 16px;
+    object-fit: cover;
+}
+
+.carousel-container {
+    display: flex;
+    justify-content: center;
+}
+
+.view-gallery {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease;
+}
+
+.view-gallery:hover {
+    background-color: var(--accent-color);
+}
+
+/* Carousel Styles - Preserved */
+.carousel {
+    margin: 0 auto;
+    padding: 20px 0;
+    max-width: 700px;
+    overflow: hidden;
+    display: flex;
+}
+
+.carousel>* {
+    flex: 0 0 100%;
+}
+
+.carousel:hover .group {
+    animation-play-state: paused;
+}
+
+.card {
+    width: 100%;
+    color: white;
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 10%) 5px 5px 20px 0;
+    padding: 0;
+    font-size: xx-large;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    overflow: hidden;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@keyframes scrolling {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.group {
+    display: flex;
+    gap: 20px;
+    padding-right: 20px;
+    will-change: transform;
+    animation: scrolling 15s linear infinite;
+}
+
+.Dough1,
+.Bagel1,
+.Dough2 {
+    height: 300px;
+    object-fit: cover;
+    display: block;
+}
+
+.carlImage {
+    padding: 0 !important;
+}
+
+/* Testimonials Section */
+.section-testimonials {
+    padding: 4rem 2rem;
+    background-color: #fff;
+}
+
+.testimonial-card {
+    background-color: var(--light-color);
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.stars {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    letter-spacing: 3px;
+}
+
+.testimonial-text {
+    font-size: 0.95rem;
+    font-style: italic;
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+    line-height: 1.6;
+}
+
+.testimonial-author {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #666;
+}
+
+/* Footer Section */
+.footer-section {
+    background-color: var(--light-color);
+    padding: 3rem 2rem;
+    border-top: 1px solid #e0d5c7;
+}
+
+.footer-logo {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.footer-logo-img {
+    width: 100px;
+    height: auto;
+}
+
+.footer-social {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.social-link {
+    text-decoration: none;
+    color: var(--dark-color);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.social-link:hover {
+    color: var(--primary-color);
+}
+
+.footer-heading {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+}
+
+.email-form {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.email-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 20px;
+    background-color: white;
+    font-size: 0.9rem;
+    border: 1px solid #ddd;
+}
+
+.email-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.email-input::placeholder {
+    color: #999;
+}
+
+.btn-join {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-join:hover {
+    background-color: var(--accent-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-banner {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .hero-content {
+        padding: 2rem;
+        max-width: 100%;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-image {
+        height: 300px;
+        width: 100%;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        margin-bottom: 1rem;
+    }
+
+    .navbar-nav .nav-link {
+        margin: 0.5rem 0;
+    }
+
+    .nav-cart {
+        margin-left: 0;
+    }
+
+    .email-form {
+        flex-direction: column;
+    }
+}
+
+/* Back to Top Button */
+.back-to-top-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.back-to-top-btn:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.back-to-top-btn.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Responsive Back to Top Button */
+@media (max-width: 768px) {
+    .back-to-top-btn {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+
+    .back-to-top-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+}
