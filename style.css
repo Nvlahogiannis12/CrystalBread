@@ -230,6 +230,22 @@ body {
 
 .btn-add-cart:hover {
     background-color: var(--accent-color);
+    color: white;
+}
+
+.product-controls {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.product-controls input[type="number"] {
+    width: 60px;
+    padding: 0.25rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
 }
 
 /* Story & Bake Section */
@@ -269,6 +285,7 @@ body {
 .learn-more:hover {
     color: var(--accent-color);
     border-bottom-color: var(--accent-color);
+    cursor: pointer;
 }
 
 .story-image-container {
@@ -633,4 +650,11 @@ body {
         width: 18px;
         height: 18px;
     }
+}
+
+/* Number box arrows always visible */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    opacity: 1;
+    -webkit-appearance: auto;
 }
