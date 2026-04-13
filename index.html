@@ -50,7 +50,8 @@
                         </li>
                     </ul>
                     <div class="nav-cart">
-                        <a class="nav-link" href="#cart">CART (0)</a>
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#cartModal">CART ({{
+                            cartCount }})</a>
                     </div>
                 </div>
             </div>
@@ -74,42 +75,22 @@
         <section class="section-best-sellers" id="shop">
             <div class="container">
                 <h2 class="section-title">Our Best Sellers</h2>
-                <div class="row">
-                    <div class="col-md-6 col-lg-4 mb-4">
+                <div class="row" id="productGrid">
+                    <div class="col-md-6 col-lg-4 mb-4" v-for="item in items" :key="item.name">
                         <div class="product-card">
-                            <img src="imgs/SourDough1.jpg" alt="Full Sourdough" class="product-img">
-                            <h3 class="product-name">Full Sourdough</h3>
-                            <p class="product-price">${{sourdoughPrice}}</p>
+                            <img :src="item.image || 'imgs/sourdough-loaves-news-banner.jpg'" :alt="item.name"
+                                class="product-img">
+                            <h3 class="product-name">{{ item.name }}</h3>
+                            <p class="product-price">{{ item.price }}</p>
                             <div class="product-controls">
-                                <input type="number" id="quantity" name="quantity" value="1" min="1" max="5">
-                                <button class="btn btn-add-cart"
-                                    onclick="addToCart('Full Sourdough', '{{sourdoughPrice}}')">ADD TO CART</button>
+                                <input type="number" :id="`quantity-${item.name.replace(/\s+/g, '-')}`" min="1"
+                                    :max="Number(item.maxOrder)" v-model.number="item.quantity">
+                                <button class="btn btn-add-cart" @click="addToCart(item)">ADD TO CART</button>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-4 mb-4">
-                        <div class="product-card">
-                            <img src="imgs/Bagel1.jpg" alt="Rosemary Sourdough" class="product-img">
-                            <h3 class="product-name">Bagel</h3>
-                            <p class="product-price">${{bagelPrice}}</p>
-                            <div class="product-controls">
-                                <input type="number" id="quantity" name="quantity" value="1" min="1" max="5">
-                                <button class="btn btn-add-cart" onclick="addToCart('Bagel', '{{bagelPrice}}')">ADD TO
-                                    CART</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 mb-4">
-                        <div class="product-card">
-                            <img src="imgs/SourDoughStarter.jpg" alt="Everything Loaf" class="product-img">
-                            <h3 class="product-name">Starter Kit</h3>
-                            <p class="product-price">${{starterKitPrice}}</p>
-                            <div class="product-controls">
-                                <input type="number" id="quantity" name="quantity" value="1" min="1" max="5">
-                                <button class="btn btn-add-cart"
-                                    onclick="addToCart('Starter Kit', '{{starterKitPrice}}')">ADD TO CART</button>
-                            </div>
-                        </div>
+                    <div v-if="items.length === 0" class="col-12 text-center">
+                        <p>Loading products...</p>
                     </div>
                 </div>
             </div>
@@ -185,6 +166,45 @@
             </div>
             <a href="#shop"><button class="btn btn-primary btn-custom">Order Now</button></a>
         </section>
+
+        <!-- Cart Modal -->
+        <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cartModalLabel">Your Cart</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div v-if="cartItems.length === 0" class="text-center py-4">
+                            <p>Your cart is empty.</p>
+                        </div>
+                        <div v-else>
+                            <div class="cart-item mb-3" v-for="item in cartItems" :key="item.name">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <h6 class="mb-1">{{ item.name }}</h6>
+                                        <p class="mb-0 text-muted">Quantity: {{ item.inCart }}</p>
+                                    </div>
+                                    <span class="fw-semibold">{{ item.price }}</span>
+                                </div>
+                            </div>
+                            <div class="text-end fw-bold pt-3">
+                                Total items: {{ cartCount }}
+                            </div>
+                            <div class="text-end fw-bold pt-3">
+                                Total cost: ${{ (cartCount * 15).toFixed(2) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continue
+                            shopping</button>
+                        <button type="button" class="btn btn-primary" :disabled="cartCount === 0">Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Footer -->
         <footer class="footer-section" id="contact">

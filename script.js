@@ -2,22 +2,30 @@
 const app = Vue.createApp({
   data() {
     return {
-      // sourdough
-      sourdoughPrice: 15.0,
-      halfSourdoughPrice: 8.0,
-      // specialty bread
-      specialtyBreadPrice: 18.0,
-      halfSpecialtyBreadPrice: 10.0,
-      // misc
-      sourDiscardMiscPrice: 3.0,
-      packSourDiscardMiscPrice: 5.0,
-      // starter
-      starterKitPrice: 12.0,
+      items: [],
+      cartCount: 0,
       // about section
       isHidden: false,
       storyText:
         "Small batch sourdough baked fresh every morning. Crafted with organic flour, water, salt, and time.",
     };
+  },
+  created() {
+    fetch("items.json")
+      .then((response) => response.json())
+      .then((data) => {
+        this.items = data.map((item) => ({
+          ...item,
+          quantity: 1,
+          inCart: 0,
+        }));
+      })
+      .catch((error) => console.error("Error loading JSON:", error));
+  },
+  computed: {
+    cartItems() {
+      return this.items.filter((item) => Number(item.inCart) > 0);
+    },
   },
   methods: {
     learnMore() {
@@ -26,6 +34,31 @@ const app = Vue.createApp({
       this.isHidden = true;
       if (window.jQuery) {
         $("#learnMoreBtn").hide();
+      }
+    },
+    addToCart(item) {
+      const requested = Number(item.quantity) || 1;
+      const maxOrder = Number(item.maxOrder) || 1;
+      const remaining = maxOrder - (Number(item.inCart) || 0);
+
+      if (remaining <= 0) {
+        alert(
+          `You already have the maximum amount of ${item.name} in your cart.`,
+        );
+        return;
+      }
+
+      const quantityToAdd = Math.min(requested, remaining);
+      this.cartCount += quantityToAdd;
+      item.inCart += quantityToAdd;
+      item.quantity = Math.min(item.quantity, remaining);
+
+      if (quantityToAdd < requested) {
+        alert(
+          `Only ${quantityToAdd} more ${item.name} can be added. Maximum ${maxOrder} per order.`,
+        );
+      } else {
+        alert(`${quantityToAdd} × ${item.name} added to the cart.`);
       }
     },
   },
@@ -37,6 +70,10 @@ app.mount("body");
 // Back to Top Button Functionality
 document.addEventListener("DOMContentLoaded", function () {
   const backToTopBtn = document.getElementById("backToTopBtn");
+
+  if (!backToTopBtn) {
+    return;
+  }
 
   window.addEventListener("scroll", function () {
     if (window.pageYOffset > 50) {

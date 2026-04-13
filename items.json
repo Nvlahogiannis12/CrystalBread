@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Sourdough Bread",
+    "image": "imgs/SourDough1.jpg",
+    "price": "$15.00",
+    "maxOrder": "5",
+    "variants": "true",
+    "numOfVariants": "4"
+  },
+  {
+    "name": "Misc. Sourdough Products",
+    "image": "imgs/Bagel1.jpg",
+    "price": "$18.00",
+    "maxOrder": "5",
+    "variants": "true",
+    "numOfVariants": "4"
+  },
+  {
+    "name": "Sourdough Starter",
+    "image": "imgs/SourDoughStarter.jpg",
+    "price": "$12.00",
+    "maxOrder": "5",
+    "variants": "false",
+    "numOfVariants": "1"
+  }
+]
