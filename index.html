@@ -80,10 +80,24 @@
                 <div class="row" id="productGrid">
                     <div class="col-md-6 col-lg-4 mb-4" v-for="item in items" :key="item.name">
                         <div class="product-card">
-                            <img :src="item.image || 'imgs/sourdough-loaves-news-banner.jpg'" :alt="item.name"
-                                class="product-img">
+                            <div v-if="item.variants && item.variants.length > 1" class="variant-tabs">
+                                <button v-for="(variant, variantIndex) in item.variants" :key="variant.name"
+                                    type="button" class="variant-tab"
+                                    :class="{ active: variantIndex === item.selectedVariantIndex }"
+                                    @click="selectVariant(item, variantIndex)">
+                                    {{ variant.name }}
+                                </button>
+                            </div>
+                            <img :src="(item.variants && item.variants[item.selectedVariantIndex]?.image) || item.image || 'imgs/sourdough-loaves-news-banner.jpg'"
+                                :alt="item.name" class="product-img">
                             <h3 class="product-name">{{ item.name }}</h3>
-                            <p class="product-price">{{ item.price }}</p>
+                            <p class="product-subtitle" v-if="item.variants && item.variants.length">
+                                {{ item.variants[item.selectedVariantIndex].name }}
+                            </p>
+                            <p class="product-price">
+                                {{ (item.variants && item.variants[item.selectedVariantIndex]) ?
+                                item.variants[item.selectedVariantIndex].price : item.price }}
+                            </p>
                             <div class="product-controls">
                                 <input type="number" :id="`quantity-${item.name.replace(/\s+/g, '-')}`" min="1"
                                     :max="Number(item.maxOrder)" v-model.number="item.quantity">
@@ -214,11 +228,18 @@
 
                                         <div>
                                             <h6 class="mb-1">{{ item.name }}</h6>
-                                            <p class="mb-0 text-muted">Quantity: {{ item.inCart }}</p>
+                                            <p class="mb-0 text-muted">
+                                                Quantity: {{ item.inCart }}
+                                                <span v-if="item.variants && item.variants.length">· {{
+                                                    item.variants[item.selectedVariantIndex].name }}</span>
+                                            </p>
                                         </div>
 
                                         <div class="d-flex align-items-center gap-2">
-                                            <span class="fw-semibold">{{ item.price }}</span>
+                                            <span class="fw-semibold">
+                                                {{ item.variants && item.variants[item.selectedVariantIndex] ?
+                                                item.variants[item.selectedVariantIndex].price : item.price }}
+                                            </span>
 
                                             <button type="button" class="btn btn-outline-danger btn-sm"
                                                 @click="removeFromCart(item)">

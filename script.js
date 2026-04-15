@@ -31,6 +31,7 @@ const app = Vue.createApp({
             .toLowerCase()
             .replace(/\s+/g, "-")
             .replace(/[^a-z0-9-_]/g, ""),
+          selectedVariantIndex: 0,
           quantity: 1,
           inCart: 0,
         }));
@@ -95,13 +96,13 @@ Total Price: $${(this.cartCount * 15).toFixed(2)}`;
           `Only ${quantityToAdd} more ${item.name} can be added. Maximum ${maxOrder} per order.`,
         );
       }
-      //else {
-      //   alert(`${quantityToAdd} × ${item.name} added to the cart.`);
-      // }
 
       if (quantityToAdd > 0) {
         this.showCartDot = true;
       }
+    },
+    selectVariant(item, variantIndex) {
+      item.selectedVariantIndex = variantIndex;
     },
     removeFromCart(item) {
       if (item.inCart <= 0) {

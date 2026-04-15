@@ -1,26 +1,87 @@
 [
   {
     "name": "Sourdough Bread",
-    "image": "imgs/SourDough1.jpg",
-    "price": "$15.00",
     "maxOrder": "5",
-    "variants": "true",
-    "numOfVariants": "4"
+    "variants": [
+      {
+        "name": "Sourdough Loaf",
+        "image": "imgs/Sourdough1.jpg",
+        "price": "$15.00"
+      },
+      {
+        "name": "Half Sourdough Loaf",
+        "image": "imgs/Sourdough1.jpg",
+        "price": "$8.00"
+      },
+      {
+        "name": "Specialty Loaf",
+        "image": "imgs/Sourdough1.jpg",
+        "price": "$18.00"
+      },
+      {
+        "name": "1/2 Specialty Loaf",
+        "image": "imgs/Sourdough1.jpg",
+        "price": "$10.00"
+      }
+    ]
   },
   {
-    "name": "Misc. Sourdough Products",
-    "image": "imgs/Bagel1.jpg",
-    "price": "$18.00",
+    "name": "Sourdough Bagels",
     "maxOrder": "5",
-    "variants": "true",
-    "numOfVariants": "4"
+    "variants": [
+      {
+        "name": "Single Bagel",
+        "image": "imgs/Bagel1.jpg",
+        "price": "$3.00"
+      },
+      {
+        "name": "Bagel Pack",
+        "image": "imgs/Bagel1.jpg",
+        "price": "$5.00"
+      }
+    ]
   },
   {
-    "name": "Sourdough Starter",
-    "image": "imgs/SourDoughStarter.jpg",
-    "price": "$12.00",
+    "name": "Cookies",
     "maxOrder": "5",
-    "variants": "false",
-    "numOfVariants": "1"
+    "variants": [
+      {
+        "name": "Single Cookie",
+        "image": "imgs/Bagel1.jpg",
+        "price": "$3.00"
+      },
+      {
+        "name": "Cookie Pack",
+        "image": "imgs/Bagel1.jpg",
+        "price": "$5.00"
+      }
+    ]
+  },
+  {
+    "name": "Muffins",
+    "maxOrder": "5",
+    "variants": [
+      {
+        "name": "Single Muffin",
+        "image": "imgs/Bagel1.jpg",
+        "price": "$3.00"
+      },
+      {
+        "name": "Muffin Pack",
+        "image": "imgs/Bagel1.jpg",
+        "price": "$5.00"
+      }
+    ]
+  },
+  {
+    "name": "Sourdough Starter Kit",
+    "maxOrder": "5",
+    "variants": [
+      {
+        "name": "Starter Jar",
+        "image": "imgs/SourdoughStarter.jpg",
+        "price": "$12.00"
+      }
+    ]
   }
 ]
