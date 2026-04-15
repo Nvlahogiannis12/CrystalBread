@@ -4,18 +4,33 @@ const app = Vue.createApp({
     return {
       items: [],
       cartCount: 0,
+      showCartDot: false,
       // about section
       isHidden: false,
       storyText:
         "Small batch sourdough baked fresh every morning. Crafted with organic flour, water, salt, and time.",
     };
   },
+  mounted() {
+    const cartModal = document.getElementById("cartModal");
+    if (cartModal) {
+      cartModal.addEventListener("show.bs.modal", () => {
+        this.showCartDot = false;
+      });
+    }
+  },
   created() {
     fetch("items.json")
       .then((response) => response.json())
       .then((data) => {
-        this.items = data.map((item) => ({
+        this.items = data.map((item, index) => ({
           ...item,
+          id: item.name
+            .toString()
+            .trim()
+            .toLowerCase()
+            .replace(/\s+/g, "-")
+            .replace(/[^a-z0-9-_]/g, ""),
           quantity: 1,
           inCart: 0,
         }));
@@ -25,6 +40,28 @@ const app = Vue.createApp({
   computed: {
     cartItems() {
       return this.items.filter((item) => Number(item.inCart) > 0);
+    },
+
+    cartItemIds() {
+      return this.cartItems.reduce((ids, item) => {
+        for (let i = 0; i < Number(item.inCart); i += 1) {
+          ids.push(item.id);
+        }
+        return ids;
+      }, []);
+    },
+
+    orderSummary() {
+      if (this.cartItems.length === 0) return "Cart Empty";
+
+      const items = this.cartItems
+        .map((item) => `${item.name} — Quantity: ${item.inCart}`)
+        .join("\n");
+
+      return `${items}
+
+Total Items: ${this.cartCount}
+Total Price: $${(this.cartCount * 15).toFixed(2)}`;
     },
   },
   methods: {
@@ -57,9 +94,28 @@ const app = Vue.createApp({
         alert(
           `Only ${quantityToAdd} more ${item.name} can be added. Maximum ${maxOrder} per order.`,
         );
-      } else {
-        alert(`${quantityToAdd} × ${item.name} added to the cart.`);
       }
+      //else {
+      //   alert(`${quantityToAdd} × ${item.name} added to the cart.`);
+      // }
+
+      if (quantityToAdd > 0) {
+        this.showCartDot = true;
+      }
+    },
+    removeFromCart(item) {
+      if (item.inCart <= 0) {
+        return;
+      }
+      item.inCart -= 1;
+      this.cartCount = Math.max(this.cartCount - 1, 0);
+    },
+    clearCart() {
+      this.items.forEach((item) => {
+        item.inCart = 0;
+      });
+      this.cartCount = 0;
+      this.showCartDot = false;
     },
   },
 });

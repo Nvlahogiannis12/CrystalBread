@@ -50,8 +50,10 @@
                         </li>
                     </ul>
                     <div class="nav-cart">
-                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#cartModal">CART ({{
-                            cartCount }})</a>
+                        <a class="nav-link cart-link" href="#" data-bs-toggle="modal" data-bs-target="#cartModal">
+                            CART ({{ cartCount }})
+                            <span v-if="showCartDot" class="cart-dot"></span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -176,31 +178,85 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div v-if="cartItems.length === 0" class="text-center py-4">
-                            <p>Your cart is empty.</p>
-                        </div>
-                        <div v-else>
-                            <div class="cart-item mb-3" v-for="item in cartItems" :key="item.name">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <h6 class="mb-1">{{ item.name }}</h6>
-                                        <p class="mb-0 text-muted">Quantity: {{ item.inCart }}</p>
+                        <form action="https://formspree.io/f/mrerepoe" method="POST">
+
+                            <input type="hidden" name="_subject" value="New Crystal Bread Order" />
+                            <input type="hidden" name="_captcha" value="false" />
+
+                            <label>
+                                Your Email:
+                                <input id="email" type="email" name="email" required>
+                            </label>
+
+                            <label>
+                                Your Name:
+                                <input id="name" type="text" name="name" required>
+                            </label>
+
+                            <label>
+                                Your Address:
+                                <input id="address" type="text" name="address" required>
+                            </label>
+
+                            <!-- Vue Order Summary -->
+                            <textarea name="Order Details" hidden>{{ orderSummary }}</textarea>
+
+                            <input v-for="(id, index) in cartItemIds" :key="`${id}-${index}`" type="hidden"
+                                name="itemIds[]" :value="id" />
+
+                            <div v-if="cartItems.length === 0" class="text-center py-4">
+                                <p>Your cart is empty.</p>
+                            </div>
+
+                            <div v-else>
+                                <div class="cart-item mb-3" v-for="item in cartItems" :key="item.name">
+                                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+
+                                        <div>
+                                            <h6 class="mb-1">{{ item.name }}</h6>
+                                            <p class="mb-0 text-muted">Quantity: {{ item.inCart }}</p>
+                                        </div>
+
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="fw-semibold">{{ item.price }}</span>
+
+                                            <button type="button" class="btn btn-outline-danger btn-sm"
+                                                @click="removeFromCart(item)">
+                                                Remove 1
+                                            </button>
+
+                                        </div>
                                     </div>
-                                    <span class="fw-semibold">{{ item.price }}</span>
                                 </div>
+
+                                <div class="text-end fw-bold pt-3">
+                                    Total items: {{ cartCount }}
+                                </div>
+
+                                <div class="text-end fw-bold pt-3">
+                                    Total cost: ${{ (cartCount * 15).toFixed(2) }}
+                                </div>
+
                             </div>
-                            <div class="text-end fw-bold pt-3">
-                                Total items: {{ cartCount }}
+
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    Continue shopping
+                                </button>
+
+                                <button type="button" class="btn btn-outline-danger" v-if="cartCount > 0"
+                                    @click="clearCart">
+                                    Clear Cart
+                                </button>
+
+                                <button type="submit" class="btn btn-primary" :disabled="cartCount === 0">
+                                    Order
+                                </button>
+
                             </div>
-                            <div class="text-end fw-bold pt-3">
-                                Total cost: ${{ (cartCount * 15).toFixed(2) }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continue
-                            shopping</button>
-                        <button type="button" class="btn btn-primary" :disabled="cartCount === 0">Order</button>
+
+                        </form>
                     </div>
                 </div>
             </div>

@@ -81,6 +81,18 @@ body {
     padding: 0.5rem 1rem;
     border-radius: 20px;
     font-weight: 600;
+    position: relative;
+}
+
+.cart-dot {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #e63946;
+    border-radius: 50%;
+    bottom: 6px;
+    right: 8px;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8);
 }
 
 /* Hero Banner */
