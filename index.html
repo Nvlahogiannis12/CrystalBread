@@ -210,20 +210,23 @@
                             <input type="hidden" name="_subject" value="New Crystal Bread Order" />
                             <input type="hidden" name="_captcha" value="false" />
 
-                            <label>
-                                Your Email:
-                                <input id="email" type="email" name="email" required>
-                            </label>
+                            <!-- Email -->
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Your Email</label>
+                                <input id="email" type="email" name="email" class="form-control" required>
+                            </div>
 
-                            <label>
-                                Your Name:
-                                <input id="name" type="text" name="name" required>
-                            </label>
+                            <!-- Name -->
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Your Name</label>
+                                <input id="name" type="text" name="name" class="form-control" required>
+                            </div>
 
-                            <label>
-                                Your Address:
-                                <input id="address" type="text" name="address" required>
-                            </label>
+                            <!-- Address -->
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Your Address</label>
+                                <input id="address" type="text" name="address" class="form-control" required>
+                            </div>
 
                             <!-- Vue Order Summary -->
                             <textarea name="Order Details" hidden>{{ orderSummary }}</textarea>
