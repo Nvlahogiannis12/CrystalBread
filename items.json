@@ -15,12 +15,12 @@
       },
       {
         "name": "Specialty Loaf",
-        "image": "imgs/Sourdough1.jpg",
+        "image": "imgs/BL-sourdough.jpg",
         "price": "$18.00"
       },
       {
         "name": "1/2 Specialty Loaf",
-        "image": "imgs/Sourdough1.jpg",
+        "image": "imgs/BL-sourdough.jpg",
         "price": "$10.00"
       }
     ]
@@ -47,12 +47,12 @@
     "variants": [
       {
         "name": "Single Cookie",
-        "image": "imgs/Bagel1.jpg",
+        "image": "imgs/sourdough-cookie.jpg",
         "price": "$3.00"
       },
       {
         "name": "Cookie Pack",
-        "image": "imgs/Bagel1.jpg",
+        "image": "imgs/sourdough-cookie.jpg",
         "price": "$5.00"
       }
     ]
@@ -63,12 +63,12 @@
     "variants": [
       {
         "name": "Single Muffin",
-        "image": "imgs/Bagel1.jpg",
+        "image": "imgs/sourdough-muffin.jpg",
         "price": "$3.00"
       },
       {
         "name": "Muffin Pack",
-        "image": "imgs/Bagel1.jpg",
+        "image": "imgs/sourdough-muffin.jpg",
         "price": "$5.00"
       }
     ]
