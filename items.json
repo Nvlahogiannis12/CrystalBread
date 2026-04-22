@@ -5,12 +5,12 @@
     "variants": [
       {
         "name": "Sourdough Loaf",
-        "image": "imgs/Sourdough1.jpg",
+        "image": "imgs/SourDough1.jpg",
         "price": "$15.00"
       },
       {
         "name": "Half Sourdough Loaf",
-        "image": "imgs/Sourdough1.jpg",
+        "image": "imgs/SourDough1.jpg",
         "price": "$8.00"
       },
       {
@@ -79,7 +79,7 @@
     "variants": [
       {
         "name": "Starter Jar",
-        "image": "imgs/SourdoughStarter.jpg",
+        "image": "imgs/SourDoughStarter.jpg",
         "price": "$12.00"
       }
     ]

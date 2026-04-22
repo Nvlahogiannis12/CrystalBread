@@ -52,6 +52,15 @@ const app = Vue.createApp({
       }, []);
     },
 
+    totalCost() {
+      return this.cartItems.reduce((total, item) => {
+        const price = item.variants && item.variants[item.selectedVariantIndex] 
+          ? parseFloat(item.variants[item.selectedVariantIndex].price.replace('$', '')) 
+          : parseFloat(item.price.replace('$', ''));
+        return total + (price * item.inCart);
+      }, 0);
+    },
+
     orderSummary() {
       if (this.cartItems.length === 0) return "Cart Empty";
 
@@ -62,7 +71,7 @@ const app = Vue.createApp({
       return `${items}
 
 Total Items: ${this.cartCount}
-Total Price: $${(this.cartCount * 15).toFixed(2)}`;
+Total Price: $${this.totalCost.toFixed(2)}`;
     },
   },
   methods: {
